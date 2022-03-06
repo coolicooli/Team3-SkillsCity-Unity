@@ -7,26 +7,44 @@ public class ButtonScript : MonoBehaviour
 {
     public bool buttonOn;
     public TileBase onTile, offTile;
+    public GameObject[] affectedTilemaps;
 
     private Tilemap tilemap;
     private TileBase[] allTile;
+    private BoundsInt tileBounds;
 
     // Start is called before the first frame update
     void Start()
     {
         buttonOn = false;
         tilemap = GetComponent<Tilemap>();
-        allTile = tilemap.GetTilesBlock(tilemap.cellBounds);
+        tileBounds = tilemap.cellBounds;
+        allTile = tilemap.GetTilesBlock(tileBounds);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (buttonOn)
+        for (int x = 0; x < tileBounds.size.x; x++) 
         {
-            foreach (TileBase tile in allTile)
+            for (int y = 0; y < tileBounds.size.y; y++) 
             {
-
+                TileBase tile = allTile[x + y * tileBounds.size.x];
+                if (tile != null) 
+                {
+                    if (buttonOn)
+                    {
+                        Vector3Int coordinates = new Vector3Int(x, y, 0);
+                        tilemap.SetTile(coordinates, onTile);
+                        UpdateTiles(true);
+                    }  
+                    else
+                    {
+                        Vector3Int coordinates = new Vector3Int(x, y, 0);
+                        tilemap.SetTile(coordinates, offTile);
+                        UpdateTiles(false);
+                    }
+                } 
             }
         }
 
@@ -34,5 +52,19 @@ public class ButtonScript : MonoBehaviour
         {
 
         }*/
+    }
+
+    void UpdateTiles(bool state)
+    {
+        foreach (GameObject GameObj in affectedTilemaps)
+        {
+            TilemapCollider2D tempCollider = GameObj.GetComponent<TilemapCollider2D>();
+            if (tempCollider == null)
+                Debug.Log("No Collider Attached");
+            else
+            {
+                tempCollider.enabled = state;
+            }
+        }
     }
 }
