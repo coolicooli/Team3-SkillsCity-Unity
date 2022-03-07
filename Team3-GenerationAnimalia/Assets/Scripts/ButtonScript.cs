@@ -4,20 +4,28 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class ButtonScript : MonoBehaviour
-{
-    public bool buttonOn;
-    public TileBase onTile, offTile;
-    public GameObject[] affectedTilemaps;
-
+{    
     private Tilemap tilemap;
+    private TilemapCollider2D tileColl;
     private TileBase[] allTile;
     private BoundsInt tileBounds;
+    private bool triggerStatus;
 
+
+    [SerializeField]
+    private bool buttonOn;
+    [SerializeField]
+    private TileBase onTile, offTile;
+    [SerializeField]
+    private GameObject[] affectedTilemaps;
+
+ 
     // Start is called before the first frame update
     void Start()
     {
         buttonOn = false;
         tilemap = GetComponent<Tilemap>();
+        tileColl = GetComponent<TilemapCollider2D>();
         tileBounds = tilemap.cellBounds;
         allTile = tilemap.GetTilesBlock(tileBounds);
     }
@@ -48,13 +56,30 @@ public class ButtonScript : MonoBehaviour
             }
         }
 
-        /*if (Input.GetKeyDown("E") == true)
+        if (triggerStatus)
         {
 
-        }*/
+        }
     }
 
-    void UpdateTiles(bool state)
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            triggerStatus = true;
+            Debug.Log("Entered trigger");
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            triggerStatus = false;
+            Debug.Log("Exited trigger");
+        }
+    }
+
+    private void UpdateTiles(bool state)
     {
         foreach (GameObject GameObj in affectedTilemaps)
         {
