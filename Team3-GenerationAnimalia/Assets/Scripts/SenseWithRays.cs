@@ -1,0 +1,124 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SenseWithRays : MonoBehaviour
+{
+
+    public enum MovementDirection
+    {
+        Up = 0,
+        Right = 1,
+        Down = 2,
+        Left = 3
+    }
+
+    [Range(2, 10)]
+    public int accuracyLevel = 3;
+    public BoxCollider2D selfBox;
+    public float rayDistance = 1f;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        ThrowRays(MovementDirection.Right, rayDistance);
+    }
+    public bool ThrowRays(MovementDirection whichWay, float rayDistance)
+    {
+
+        bool result = false;
+
+        Vector2 rayDirection = Vector2.zero;
+        if (whichWay == MovementDirection.Up) rayDirection = Vector2.up;
+        if (whichWay == MovementDirection.Right) rayDirection = Vector2.right;
+        if (whichWay == MovementDirection.Down) rayDirection = Vector2.down;
+        if (whichWay == MovementDirection.Left) rayDirection = Vector2.left;
+
+        for (int i = 0; i < accuracyLevel; i++)
+        // 13. now we need to make MULTIPLE rays to come out in the direction of movement. so for each number there is a whole loop
+        // 16. (we need to use the i variable to find the origin)    
+        {
+            Vector2 rayOrigin = CalculateRayOrigin(whichWay, i);       // 18. now we make a homemade function to calculate the ray origin (from the four sides of the character)
+                                                                       // 24. we input moevemntdirection and the #raynumber(from the number of rays)
+
+            RaycastHit2D rayResult = Physics2D.Raycast(rayOrigin, rayDirection, rayDistance); // 4. send out a ray and store it a raycasthit variable. we get the information from the input for the function 
+                                                                                              // this code will later be put into a FOR loop (#13)
+
+            Debug.DrawRay(rayOrigin, rayDirection, Color.black, 0.3f);
+            if (rayResult.collider != null)                   // 9. ##original code [result = (rayResult.collider != null)]here the result will be filled as true always if the ray DOES NOT RETURN NOTHING. 
+                                                              // it will later be moved into the FOR loop then changed into an IF statement (as it cannot stay in the for loop or it will only return the LAST ray) (#14) - move into for loop
+            {
+                result = true;                                  // 14. move #9 into the for loop. //?// 
+                                                                //15. then create an if statement that says if one returns back as true then it is true.
+            }
+
+        }
+
+        return result;
+        // 3. setting return as whatever is in the variable **same as above
+    }
+    public Vector2 CalculateRayOrigin(MovementDirection dir, int rayIndex)    // 19. create the function with a vector2 output. //?//
+    {                                                               //?// what are the parameters for the origin? we can get the centre of our character
+                                                                    // 22. we use the enumeration to fill the brackets and give a new variable for it (dir) 
+                                                                    // 23. we input the ray index to put a number on each ray.
+                                                                    // now we need to target the four corners// we have two options.
+
+        Vector2 result = transform.position;                // 20. we set an empty variable for the result
+
+        Vector2 firstCorner = Vector2.zero;
+        Vector2 lastCorner = Vector2.zero;
+
+        if (dir == MovementDirection.Up)
+        {
+            firstCorner = GetSpecificCorner(true, false);
+            lastCorner = GetSpecificCorner(true, true);
+        }
+        else if (dir == MovementDirection.Right)
+        {
+            firstCorner = GetSpecificCorner(true, true);
+            lastCorner = GetSpecificCorner(false, true);
+        }
+        else if (dir == MovementDirection.Down)
+        {
+            firstCorner = GetSpecificCorner(false, false);
+            lastCorner = GetSpecificCorner(false, true);
+        }
+        else if (dir == MovementDirection.Left)
+        {
+            firstCorner = GetSpecificCorner(false, false);
+            lastCorner = GetSpecificCorner(true, false);
+        }
+
+        float positionRatio = (float)rayIndex / ((float)accuracyLevel - 1f);                          // 27. find the position ratio to find the i value (1:01:35)
+
+        result = firstCorner * positionRatio + lastCorner * (1 - positionRatio); // replaced by the line below
+        result = Vector2.Lerp(firstCorner, lastCorner, positionRatio); // started with mathf.lerp
+        return result;                                      // 21. we declare the result variable as the return valuable 
+                                                            // now we must fll the ()
+    }
+    Vector2 GetSpecificCorner(bool up, bool right)
+    {
+        Vector2 result = transform.position;
+
+        float invertX = 1;
+        float invertY = 1;
+
+        if (!right) invertX = -1;
+        if (!up) invertY = -1;
+
+        result.x += selfBox.offset.x; // apply offset
+        result.x += selfBox.size.x * 0.5f * invertX;// add or remove half the size (1:50)
+        result.x *= transform.lossyScale.x; // apply scale to everything
+                                            //Same thing above + below   // LossyScale refers to world/global
+        result.y += (selfBox.size.y * 0.5f * invertY + selfBox.offset.y) * transform.lossyScale.y;
+
+        return result;
+    }
+}
+
