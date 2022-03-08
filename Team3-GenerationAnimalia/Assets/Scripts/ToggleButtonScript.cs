@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class ButtonScript : MonoBehaviour
+public class ToggleButtonScript : MonoBehaviour
 {    
+    [Header("Private Variables")]
     private Tilemap tilemap;
     private TilemapCollider2D tileColl;
     private TileBase[] allTile;
     private BoundsInt tileBounds;
     private bool triggerStatus;
 
-
+    [Header("Debug")]
     [SerializeField]
     private bool buttonOn;
-    [SerializeField]
+    
+    [Header("Refrences")]
+    [SerializeField]    
     private TileBase onTile, offTile;
     [SerializeField]
     private GameObject[] affectedTilemaps;
@@ -26,6 +29,7 @@ public class ButtonScript : MonoBehaviour
         buttonOn = false;
         tilemap = GetComponent<Tilemap>();
         tileColl = GetComponent<TilemapCollider2D>();
+        tileColl.isTrigger = true;
         tileBounds = tilemap.cellBounds;
         allTile = tilemap.GetTilesBlock(tileBounds);
     }
@@ -43,14 +47,16 @@ public class ButtonScript : MonoBehaviour
                     if (buttonOn)
                     {
                         Vector3Int coordinates = new Vector3Int(x, y, 0);
+                        Color tileColour = new Color(1.0f, 1.0f, 1.0f, 0.5f);
                         tilemap.SetTile(coordinates, onTile);
-                        UpdateTiles(true);
+                        UpdateAffectedTiles(true, tileColour);
                     }  
                     else
                     {
                         Vector3Int coordinates = new Vector3Int(x, y, 0);
+                        Color tileColour = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                         tilemap.SetTile(coordinates, offTile);
-                        UpdateTiles(false);
+                        UpdateAffectedTiles(false, tileColour);
                     }
                 } 
             }
@@ -58,7 +64,10 @@ public class ButtonScript : MonoBehaviour
 
         if (triggerStatus)
         {
-
+            if (Input.GetKeyDown("e"))
+            {
+                buttonOn = !buttonOn;
+            }
         }
     }
 
@@ -79,16 +88,29 @@ public class ButtonScript : MonoBehaviour
         }
     }
 
-    private void UpdateTiles(bool state)
+    private void UpdateAffectedTiles(bool colState, Color visibleColour)
     {
         foreach (GameObject GameObj in affectedTilemaps)
         {
             TilemapCollider2D tempCollider = GameObj.GetComponent<TilemapCollider2D>();
-            if (tempCollider == null)
-                Debug.Log("No Collider Attached");
+            Tilemap tempTilemap = GameObj.GetComponent<Tilemap>();
+
+            if (tempCollider != null)
+            {
+                tempCollider.enabled = colState;
+            }
             else
             {
-                tempCollider.enabled = state;
+                Debug.Log("No Collider Attached");
+            }
+
+            if (tempTilemap != null)
+            {
+                tempTilemap.color = visibleColour;
+            }
+            else
+            {
+                Debug.Log("No Tilemap Attached");
             }
         }
     }
