@@ -30,37 +30,37 @@ public class ToggleButtonScript : MonoBehaviour
         tilemap = GetComponent<Tilemap>();
         tileColl = GetComponent<TilemapCollider2D>();
         tileColl.isTrigger = true;
-        tileBounds = tilemap.cellBounds;
         allTile = tilemap.GetTilesBlock(tileBounds);
+        tileBounds = tilemap.cellBounds;
+        Debug.Log("Tile Bounds are: " + tileBounds);
     }
 
     // Update is called once per frame
     void Update()
     {
-        for (int x = 0; x < tileBounds.size.x; x++) 
+        foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
         {
-            for (int y = 0; y < tileBounds.size.y; y++) 
+            TileBase tile = tilemap.GetTile(pos);
+            if (tile != null)
             {
-                TileBase tile = allTile[x + y * tileBounds.size.x];
-                if (tile != null) 
+                if (buttonOn)
                 {
-                    if (buttonOn)
-                    {
-                        Vector3Int coordinates = new Vector3Int(x, y, 0);
-                        Color tileColour = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-                        tilemap.SetTile(coordinates, onTile);
-                        UpdateAffectedTiles(true, tileColour);
-                    }  
-                    else
-                    {
-                        Vector3Int coordinates = new Vector3Int(x, y, 0);
-                        Color tileColour = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-                        tilemap.SetTile(coordinates, offTile);
-                        UpdateAffectedTiles(false, tileColour);
-                    }
-                } 
+                    Vector3Int coordinates = new Vector3Int(pos.x, pos.y, pos.z);
+                    Color tileColour = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+                    tilemap.SetTile(coordinates, onTile);
+                    UpdateAffectedTiles(true, tileColour);
+                }
+                else
+                {
+                    Vector3Int coordinates = new Vector3Int(pos.x, pos.y, pos.z);
+                    Color tileColour = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    tilemap.SetTile(coordinates, offTile);
+                    UpdateAffectedTiles(false, tileColour);
+                }
             }
         }
+
+        
 
         if (triggerStatus)
         {
