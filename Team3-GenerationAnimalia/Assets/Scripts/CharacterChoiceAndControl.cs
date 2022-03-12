@@ -20,7 +20,7 @@ public class CharacterChoiceAndControl : MonoBehaviour
     {
         characters[0].GetComponent<MovementScript2D>().enabled = true;
         CameraPos = characters[0].transform.position;
-        CameraPos.z =- 0.5f;
+        CameraPos.z =- 1.5f;
     }
 
     // Update is called once per frame
