@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 149636735}
   - component: {fileID: 149636734}
   - component: {fileID: 149636733}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Player (2)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ MonoBehaviour:
   rayDistance: 1
   affectedLayer:
     serializedVersion: 2
-    m_Bits: 51
+    m_Bits: 247
   skinWidth: 0.03
   extraDistanceRatioFromCorners: 0.1
   direction: 0
@@ -428,7 +428,7 @@ Transform:
   - {fileID: 1891231434}
   - {fileID: 149636739}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &973581675
 GameObject:
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 973581681}
   - component: {fileID: 973581680}
   - component: {fileID: 973581682}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -683,10 +683,58 @@ MonoBehaviour:
   rayDistance: 1
   affectedLayer:
     serializedVersion: 2
-    m_Bits: 51
+    m_Bits: 439
   skinWidth: 0.03
   extraDistanceRatioFromCorners: 0.1
   direction: 0
+--- !u!1 &1095438589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1095438590}
+  - component: {fileID: 1095438591}
+  m_Layer: 0
+  m_Name: FollowCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1095438590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095438589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.08, y: 1.356091, z: -1.0671515}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1294759320}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1095438591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095438589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fbebc581a0d31846af7372747f82014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characters:
+  - {fileID: 973581675}
+  - {fileID: 1891231427}
+  - {fileID: 149636732}
 --- !u!1 &1195569511
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,7 +781,7 @@ Transform:
   - {fileID: 1124295171}
   - {fileID: 1878365084}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1294759317
 GameObject:
@@ -811,11 +859,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1294759317}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.854424, y: -1.356091, z: -8.932848}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1095438590}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1636121956
@@ -1959,7 +2007,7 @@ GameObject:
   - component: {fileID: 1891231430}
   - component: {fileID: 1891231429}
   - component: {fileID: 1891231428}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Player (1)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1983,7 +2031,7 @@ MonoBehaviour:
   rayDistance: 1
   affectedLayer:
     serializedVersion: 2
-    m_Bits: 51
+    m_Bits: 375
   skinWidth: 0.03
   extraDistanceRatioFromCorners: 0.1
   direction: 0

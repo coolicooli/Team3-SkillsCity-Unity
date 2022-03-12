@@ -57,9 +57,9 @@ public class CharacterChoiceAndControl : MonoBehaviour
             characters[0].GetComponent<MovementScript2D>().enabled = true;
             characters[1].GetComponent<MovementScript2D>().enabled = false;
             characters[2].GetComponent<MovementScript2D>().enabled = false;
-
             CameraPos = characters[0].transform.position;
             CameraPos.z =- 1.5f;
+
 
         }
 
