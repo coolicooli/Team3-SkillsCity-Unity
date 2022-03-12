@@ -22,6 +22,9 @@ public class PressurePlateScript : MonoBehaviour
     [SerializeField]
     private GameObject[] affectedTilemaps;
 
+     [SerializeField]
+    private LayerMask onMask, offMask;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,20 +49,20 @@ public class PressurePlateScript : MonoBehaviour
                     Vector3Int coordinates = new Vector3Int(pos.x, pos.y, pos.z);
                     Color tileColour = new Color(1.0f, 1.0f, 1.0f, 0.5f);
                     tilemap.SetTile(coordinates, onTile);
-                    UpdateAffectedTiles(true, tileColour);
+                    UpdateAffectedTiles(false, tileColour, onMask);
                 }
                 else
                 {
                     Vector3Int coordinates = new Vector3Int(pos.x, pos.y, pos.z);
                     Color tileColour = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                     tilemap.SetTile(coordinates, offTile);
-                    UpdateAffectedTiles(false, tileColour);
+                    UpdateAffectedTiles(true, tileColour, offMask);
                 }
             }
         }
     }
 
-    private void UpdateAffectedTiles(bool colState, Color visibleColour)
+    private void UpdateAffectedTiles(bool colState, Color visibleColour, LayerMask mask)
     {
         foreach (GameObject GameObj in affectedTilemaps)
         {
@@ -69,6 +72,7 @@ public class PressurePlateScript : MonoBehaviour
             if (tempCollider != null)
             {
                 tempCollider.enabled = colState;
+                GameObj.layer = mask;
             }
             else
             {

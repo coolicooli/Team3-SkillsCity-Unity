@@ -12,7 +12,7 @@ public class ToggleButtonScript : MonoBehaviour
     private BoundsInt tileBounds;
     private bool triggerStatus;
 
-    [Header("Debug")]
+    [Header("States")]
     [SerializeField]
     private bool buttonOn;
     
@@ -22,16 +22,18 @@ public class ToggleButtonScript : MonoBehaviour
     [SerializeField]
     private GameObject[] affectedTilemaps;
 
+    [SerializeField]
+    private LayerMask onMask, offMask;
+
  
     // Start is called before the first frame update
     void Start()
     {
-        buttonOn = false;
         tilemap = GetComponent<Tilemap>();
         tileColl = GetComponent<TilemapCollider2D>();
         tileColl.isTrigger = true;
-        allTile = tilemap.GetTilesBlock(tileBounds);
         tileBounds = tilemap.cellBounds;
+        allTile = tilemap.GetTilesBlock(tileBounds);
         Debug.Log("Tile Bounds are: " + tileBounds);
     }
 
@@ -46,16 +48,16 @@ public class ToggleButtonScript : MonoBehaviour
                 if (buttonOn)
                 {
                     Vector3Int coordinates = new Vector3Int(pos.x, pos.y, pos.z);
-                    Color tileColour = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+                    Color tileColour = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                     tilemap.SetTile(coordinates, onTile);
-                    UpdateAffectedTiles(true, tileColour);
+                    UpdateAffectedTiles(true, tileColour, onMask);
                 }
                 else
                 {
                     Vector3Int coordinates = new Vector3Int(pos.x, pos.y, pos.z);
-                    Color tileColour = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    Color tileColour = new Color(1.0f, 1.0f, 1.0f, 0.5f);
                     tilemap.SetTile(coordinates, offTile);
-                    UpdateAffectedTiles(false, tileColour);
+                    UpdateAffectedTiles(false, tileColour, offMask);
                 }
             }
         }
@@ -88,7 +90,7 @@ public class ToggleButtonScript : MonoBehaviour
         }
     }
 
-    private void UpdateAffectedTiles(bool colState, Color visibleColour)
+    private void UpdateAffectedTiles(bool colState, Color visibleColour, LayerMask mask)
     {
         foreach (GameObject GameObj in affectedTilemaps)
         {
@@ -98,6 +100,7 @@ public class ToggleButtonScript : MonoBehaviour
             if (tempCollider != null)
             {
                 tempCollider.enabled = colState;
+                GameObj.layer = mask;
             }
             else
             {
