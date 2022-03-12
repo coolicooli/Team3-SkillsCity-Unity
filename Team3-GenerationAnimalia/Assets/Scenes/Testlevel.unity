@@ -730,6 +730,8 @@ Transform:
   - {fileID: 1698394532}
   - {fileID: 2017635599}
   - {fileID: 1636121957}
+  - {fileID: 1124295171}
+  - {fileID: 1878365084}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2210,6 +2212,7 @@ GameObject:
   - component: {fileID: 2017635599}
   - component: {fileID: 2017635602}
   - component: {fileID: 2017635601}
+  - component: {fileID: 2017635603}
   - component: {fileID: 2017635600}
   - component: {fileID: 2017635603}
   - component: {fileID: 2017635604}
