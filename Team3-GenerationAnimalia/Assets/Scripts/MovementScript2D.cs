@@ -72,7 +72,6 @@ namespace movement
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 JumpStart();
-
             }
 
             JumpUpdate();
