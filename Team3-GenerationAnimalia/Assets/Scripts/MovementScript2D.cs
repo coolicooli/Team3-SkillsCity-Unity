@@ -25,6 +25,8 @@ namespace movement
         bool isGrounded;
         float timeSinceFalling;
 
+        public bool isWin = false;
+
         private void Start()
         {
             // weAreJumping = false;

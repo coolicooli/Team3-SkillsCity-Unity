@@ -12,10 +12,7 @@ public class CharacterChoiceAndControl : MonoBehaviour
     private Camera camera;
     private Vector3 CameraPos = new Vector3(0.0f, 0.0f, -0.5f);
     private bool P1Control = false, P2Control = true, P3Control = false;
-
-    public bool P1Win, P2Win, P3Win;
-
-
+    
     void Start()
     {
         characters[0].GetComponent<MovementScript2D>().enabled = true;
