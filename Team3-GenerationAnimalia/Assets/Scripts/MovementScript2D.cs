@@ -13,6 +13,9 @@ namespace movement
         // public float jumpSpeed;
         public AnimationCurve gravityCurve;
         public AnimationCurve jumpCurve;
+
+        [SerializeField]
+        private AudioSource jumpSoundEfffect;
      
         //public float slopeMaxThreshold = 50f;
 
@@ -85,6 +88,7 @@ namespace movement
             weAreJumping = true;
             timeSinceJumped = 0f;
             previousFrameHeight = 0f;
+            jumpSoundEfffect.Play();
 
         } // TAKES FROM VERTICAL MOVEMENT. STARTS THE JUMP AND CHANGES SOME BOOLEAN VALUES
 
