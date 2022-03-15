@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 39809385}
   - component: {fileID: 39809388}
   - component: {fileID: 39809387}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FinishTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -764,8 +764,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417824254}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.11, y: 7.22, z: -0.047465555}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: -16.13, y: 7.1, z: -0.047465555}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 993326463}
   m_RootOrder: 0
@@ -805,7 +805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycaster: {fileID: 417824256}
   speed: 8
-  gravity: 8
+  gravity: 5
   gravityCurve:
     serializedVersion: 2
     m_Curve:
@@ -920,14 +920,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.683, y: 1.024}
+    oldSize: {x: 2.2766666, y: 3.4133334}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.44, y: 1.01}
+  m_Size: {x: 1, y: 3}
   m_EdgeRadius: 0
 --- !u!212 &417824261
 SpriteRenderer:
@@ -1821,7 +1821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycaster: {fileID: 1110563203}
-  speed: 4
+  speed: 6
   gravity: 5
   gravityCurve:
     serializedVersion: 2
@@ -1937,14 +1937,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.816, y: 1.224}
+    oldSize: {x: 1.59375, y: 2.390625}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1.23}
+  m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
 --- !u!212 &1110563208
 SpriteRenderer:
@@ -2006,7 +2006,7 @@ Transform:
   m_GameObject: {fileID: 1110563202}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -19.08, y: 7.46, z: -0.047465555}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 993326463}
   m_RootOrder: 1
